@@ -104,17 +104,17 @@ Future<Map<String, double>> fetchMonthlyPayrollSummaryForPdf({
 }) async {
   // 1) Attendance month
   final resAttendance = await http.get(Uri.parse(
-    "http://localhost:5000/attendance/attendance/month?year=$year&month=$monthIndex",
+    "https://live-hrm.onrender.com/attendance/attendance/month?year=$year&month=$monthIndex",
   ));
 
   // 2) Approved leave month
   final resLeaves = await http.get(Uri.parse(
-    "http://localhost:5000/apply/approved/month?year=$year&month=$monthIndex",
+    "https://live-hrm.onrender.com/apply/approved/month?year=$year&month=$monthIndex",
   ));
 
   // 3) Holiday month
   final resHolidays = await http.get(Uri.parse(
-    "http://localhost:5000/notifications/holiday/employee/ADMIN?month=$monthName&year=$year",
+    "https://live-hrm.onrender.com/notifications/holiday/employee/ADMIN?month=$monthName&year=$year",
   ));
 
   List<Map<String, dynamic>> monthlyAttendance = [];
@@ -251,7 +251,7 @@ final toRaw   = safeParseDate(leave["toDate"]).toLocal();
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:5000/get-multiple-payslips'),
+        Uri.parse('https://live-hrm.onrender.com/get-multiple-payslips'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'year': selectedYear,

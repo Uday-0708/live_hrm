@@ -71,7 +71,7 @@ class _SuperadminNotificationsPageState extends State<SuperadminNotificationsPag
   /// 🔹 Fetch All Messages (Admin View)
   Future<void> fetchSmsNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/message/admin/$selectedMonth?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/message/admin/$selectedMonth?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -88,7 +88,7 @@ class _SuperadminNotificationsPageState extends State<SuperadminNotificationsPag
   /// 🔹 Fetch All Performance (Admin View)
   Future<void> fetchPerformanceNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/performance/admin/$selectedMonth?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/performance/admin/$selectedMonth?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -110,7 +110,7 @@ class _SuperadminNotificationsPageState extends State<SuperadminNotificationsPag
   /// 🔹 Fetch All Holidays (Admin View)
   Future<void> fetchHolidayNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/holiday/admin/$selectedMonth?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/holiday/admin/$selectedMonth?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -286,7 +286,7 @@ class _SuperadminNotificationsPageState extends State<SuperadminNotificationsPag
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: attachments.map<Widget>((file) {
                             final String filename = file['originalName'] ?? file['filename'];
-                            final String url = "http://localhost:5000/${file['path']}";
+                            final String url = "https://live-hrm.onrender.com/${file['path']}";
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 6),
                               child: InkWell(

@@ -50,7 +50,7 @@ class _SidebarState extends State<Sidebar> {
 
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:5000/apply/get-employee-name/$employeeId'),
+        Uri.parse('https://live-hrm.onrender.com/apply/get-employee-name/$employeeId'),
       );
 
       if (response.statusCode == 200) {

@@ -71,7 +71,7 @@ class _EmployeeNotificationsPageState extends State<EmployeeNotificationsPage> {
   /// 🔹 Fetch SMS Notifications (Filtered by Year and Month)
   Future<void> fetchSmsNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear&category=message",
+      "https://live-hrm.onrender.com/notifications/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear&category=message",
     );
     final resp = await http.get(uri);
 
@@ -90,7 +90,7 @@ class _EmployeeNotificationsPageState extends State<EmployeeNotificationsPage> {
   /// 🔹 Fetch Performance Notifications (Filtered by Year and Month)
   Future<void> fetchPerformanceNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/performance/employee/$selectedMonth/${widget.empId}?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/performance/employee/$selectedMonth/${widget.empId}?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -112,7 +112,7 @@ class _EmployeeNotificationsPageState extends State<EmployeeNotificationsPage> {
   /// 🔹 Fetch Holiday Notifications (Filtered by Year and Month)
   Future<void> fetchHolidayNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/holiday/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/holiday/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -309,7 +309,7 @@ class _EmployeeNotificationsPageState extends State<EmployeeNotificationsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: attachments.map<Widget>((file) {
                             final String filename = file['originalName'] ?? file['filename'];
-                            final String url = "http://localhost:5000/${file['path']}";
+                            final String url = "https://live-hrm.onrender.com/${file['path']}";
                             final bool isImage = (file['mimetype'] ?? '').startsWith('image/');
 
                             return Padding(

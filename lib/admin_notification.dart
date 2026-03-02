@@ -67,7 +67,7 @@ class _AdminNotificationsPageState extends State<AdminNotificationsPage> {
 
   Future<void> fetchSmsNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear&category=message",
+      "https://live-hrm.onrender.com/notifications/employee/${widget.empId}?month=$selectedMonth&year=$selectedYear&category=message",
     );
     final resp = await http.get(uri);
 
@@ -83,7 +83,7 @@ class _AdminNotificationsPageState extends State<AdminNotificationsPage> {
 
   Future<void> fetchPerformanceNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/performance/admin/$selectedMonth/${widget.empId}?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/performance/admin/$selectedMonth/${widget.empId}?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -104,7 +104,7 @@ class _AdminNotificationsPageState extends State<AdminNotificationsPage> {
 
   Future<void> fetchHolidayNotifications() async {
     final uri = Uri.parse(
-      "http://localhost:5000/notifications/holiday/admin/$selectedMonth?year=$selectedYear",
+      "https://live-hrm.onrender.com/notifications/holiday/admin/$selectedMonth?year=$selectedYear",
     );
     final resp = await http.get(uri);
 
@@ -297,7 +297,7 @@ class _AdminNotificationsPageState extends State<AdminNotificationsPage> {
                       if (isExpanded && attachments.isNotEmpty) ...[
                         const SizedBox(height: 10),
                         ...attachments.map((file) {
-                          final url = "http://localhost:5000/${file['path']}";
+                          final url = "https://live-hrm.onrender.com/${file['path']}";
                           return InkWell(
                             onTap: () async {
                               final uri = Uri.parse(url);

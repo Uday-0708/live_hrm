@@ -33,7 +33,7 @@ class _MsgPageState extends State<MsgPage> {
   Future<void> fetchEmployeeDetails() async {
     try {
       final response = await http.get(
-        Uri.parse("http://localhost:5000/api/employees/${widget.employeeId}"),
+        Uri.parse("https://live-hrm.onrender.com/api/employees/${widget.employeeId}"),
       );
       if (response.statusCode == 200) {
         setState(() {
@@ -93,7 +93,7 @@ class _MsgPageState extends State<MsgPage> {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse("http://localhost:5000/notifications/with-files"),
+        Uri.parse("https://live-hrm.onrender.com/notifications/with-files"),
       );
 
       // ✅ Add fields
@@ -175,7 +175,7 @@ class _MsgPageState extends State<MsgPage> {
                     backgroundImage: (employeeData?['employeeImage'] != null &&
                             employeeData!['employeeImage'].isNotEmpty)
                         ? NetworkImage(
-                            "http://localhost:5000${employeeData!['employeeImage']}")
+                            "https://live-hrm.onrender.com${employeeData!['employeeImage']}")
                         : const AssetImage("assets/profile.png")
                             as ImageProvider,
                   ),

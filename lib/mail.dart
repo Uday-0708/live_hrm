@@ -251,7 +251,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final user = Provider.of<UserProvider>(context, listen: false);
     final empId = user.employeeId;
     try {
-      final res = await http.get(Uri.parse("http://localhost:5000/api/mail/inbox/$empId"));
+      final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/mail/inbox/$empId"));
       if (res.statusCode == 200) {
         setState(() {
           inbox = json.decode(res.body);
@@ -268,7 +268,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final user = Provider.of<UserProvider>(context, listen: false);
     final empId = user.employeeId;
     try {
-      final res = await http.get(Uri.parse("http://localhost:5000/api/mail/sent/$empId"));
+      final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/mail/sent/$empId"));
       if (res.statusCode == 200) {
         setState(() {
           sent = json.decode(res.body);
@@ -285,7 +285,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final user = Provider.of<UserProvider>(context, listen: false);
     final empId = user.employeeId;
     try {
-      final res = await http.get(Uri.parse("http://localhost:5000/api/mail/trash/$empId"));
+      final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/mail/trash/$empId"));
       if (res.statusCode == 200) {
         setState(() {
           trash = json.decode(res.body);
@@ -302,7 +302,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final user = Provider.of<UserProvider>(context, listen: false);
     final empId = user.employeeId;
     try {
-      final res = await http.get(Uri.parse("http://localhost:5000/api/mail/drafts/$empId"));
+      final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/mail/drafts/$empId"));
       if (res.statusCode == 200) {
         setState(() {
           drafts = json.decode(res.body);
@@ -331,7 +331,7 @@ class _MailDashboardState extends State<MailDashboard> {
     try {
       final user = Provider.of<UserProvider>(context, listen: false);
       final empId = user.employeeId;
-      final res = await http.get(Uri.parse("http://localhost:5000/api/mail/thread/$id/$empId"));
+      final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/mail/thread/$id/$empId"));
       if (res.statusCode == 200) {
         setState(() {
           selectedMail = json.decode(res.body);
@@ -384,7 +384,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final ccList = parseList(_ccCtrl.text);
     final bccList = parseList(_bccCtrl.text);
 
-    var req = http.MultipartRequest("POST", Uri.parse("http://localhost:5000/api/mail/send"));
+    var req = http.MultipartRequest("POST", Uri.parse("https://live-hrm.onrender.com/api/mail/send"));
     req.fields["from"] = from!;
     req.fields["to"] = jsonEncode(toList); // <-- JSON array
     req.fields["cc"] = jsonEncode(ccList); // <-- JSON array (optional)
@@ -427,7 +427,7 @@ class _MailDashboardState extends State<MailDashboard> {
           try {
             final user = Provider.of<UserProvider>(context, listen: false);
             final empId = user.employeeId;
-            await http.delete(Uri.parse("http://localhost:5000/api/mail/draft/$_editingDraftId/$empId"));
+            await http.delete(Uri.parse("https://live-hrm.onrender.com/api/mail/draft/$_editingDraftId/$empId"));
           } catch (e) {
             debugPrint("Failed to delete draft after send: $e");
           }
@@ -478,7 +478,7 @@ class _MailDashboardState extends State<MailDashboard> {
     final bccList = parseList(_inlineBccCtrl.text);
     final body = _inlineBodyCtrl.text;
 
-    var req = http.MultipartRequest("POST", Uri.parse("http://localhost:5000/api/mail/send"));
+    var req = http.MultipartRequest("POST", Uri.parse("https://live-hrm.onrender.com/api/mail/send"));
     req.fields["from"] = from!;
     req.fields["to"] = jsonEncode(toList);
     req.fields["cc"] = jsonEncode(ccList);
@@ -551,7 +551,7 @@ class _MailDashboardState extends State<MailDashboard> {
       // if nothing meaningful, and we have an existing draft id, we may delete empty draft
       if (_editingDraftId != null) {
         try {
-          await http.delete(Uri.parse("http://localhost:5000/api/mail/draft/$_editingDraftId/$from"));
+          await http.delete(Uri.parse("https://live-hrm.onrender.com/api/mail/draft/$_editingDraftId/$from"));
         } catch (e) {
           debugPrint("Delete empty draft error: $e");
         }
@@ -564,7 +564,7 @@ class _MailDashboardState extends State<MailDashboard> {
     }
 
     // prepare multipart request to save draft (attachments are optional)
-    var uri = Uri.parse("http://localhost:5000/api/mail/drafts/save");
+    var uri = Uri.parse("https://live-hrm.onrender.com/api/mail/drafts/save");
     var req = http.MultipartRequest("POST", uri);
     if (_editingDraftId != null) req.fields["draftId"] = _editingDraftId!;
     req.fields["from"] = from;
@@ -648,7 +648,7 @@ class _MailDashboardState extends State<MailDashboard> {
     try {
       final user = Provider.of<UserProvider>(context, listen: false);
       final empId = user.employeeId;
-      final res = await http.delete(Uri.parse("http://localhost:5000/api/mail/draft/$draftId/$empId"));
+      final res = await http.delete(Uri.parse("https://live-hrm.onrender.com/api/mail/draft/$draftId/$empId"));
       if (res.statusCode == 200) {
         await loadDrafts();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Draft deleted"), backgroundColor: Colors.green));
@@ -679,7 +679,7 @@ class _MailDashboardState extends State<MailDashboard> {
       final user = Provider.of<UserProvider>(context, listen: false);
       final empId = user.employeeId;
       final res = await http.put(
-        Uri.parse("http://localhost:5000/api/mail/trash/$threadId/$empId"),
+        Uri.parse("https://live-hrm.onrender.com/api/mail/trash/$threadId/$empId"),
       );
       if (res.statusCode == 200) {
         await loadInbox();
@@ -705,7 +705,7 @@ class _MailDashboardState extends State<MailDashboard> {
       final user = Provider.of<UserProvider>(context, listen: false);
       final empId = user.employeeId;
       final res = await http.put(
-        Uri.parse("http://localhost:5000/api/mail/restore/$threadId/$empId"),
+        Uri.parse("https://live-hrm.onrender.com/api/mail/restore/$threadId/$empId"),
       );
       if (res.statusCode == 200) {
         await loadTrash();
@@ -731,7 +731,7 @@ class _MailDashboardState extends State<MailDashboard> {
       final user = Provider.of<UserProvider>(context, listen: false);
       final empId = user.employeeId;
       final res = await http.delete(
-        Uri.parse("http://localhost:5000/api/mail/delete-permanent/$threadId/$empId"),
+        Uri.parse("https://live-hrm.onrender.com/api/mail/delete-permanent/$threadId/$empId"),
       );
       if (res.statusCode == 200) {
         await loadTrash();
@@ -1135,7 +1135,7 @@ class _MailDashboardState extends State<MailDashboard> {
       optionsBuilder: (TextEditingValue value) async {
         final query = value.text.split(",").last.trim();
         if (query.isEmpty) return const Iterable.empty();
-        final res = await http.get(Uri.parse("http://localhost:5000/api/employees/search/$query"));
+        final res = await http.get(Uri.parse("https://live-hrm.onrender.com/api/employees/search/$query"));
         if (res.statusCode != 200) return const Iterable.empty();
         List list = json.decode(res.body);
         return list.cast<Map<String, dynamic>>();
@@ -1175,7 +1175,7 @@ class _MailDashboardState extends State<MailDashboard> {
                 itemCount: options.length,
                 itemBuilder: (context, index) {
                   final opt = options.elementAt(index);
-                  final imagePath = opt["employeeImage"] != null ? "http://localhost:5000${opt['employeeImage']}" : null;
+                  final imagePath = opt["employeeImage"] != null ? "https://live-hrm.onrender.com${opt['employeeImage']}" : null;
                   return ListTile(
                     leading: ClipOval(
                       child: imagePath != null
@@ -1647,7 +1647,7 @@ class _MailDashboardState extends State<MailDashboard> {
                                 ClipOval(
                                   child: (from['employeeImage'] != null)
                                       ? Image.network(
-                                          "http://localhost:5000${from['employeeImage']}",
+                                          "https://live-hrm.onrender.com${from['employeeImage']}",
                                           width: 44,
                                           height: 44,
                                           fit: BoxFit.cover,
@@ -1765,7 +1765,7 @@ class _MailDashboardState extends State<MailDashboard> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: (msg["attachments"] as List).map<Widget>((file) {
                                                 final filename = file["filename"] ?? file.toString().split("/").last;
-                                                final fileUrl = "http://localhost:5000/uploads/${file['filename'] ?? file['path']?.split('/')?.last}";
+                                                final fileUrl = "https://live-hrm.onrender.com/uploads/${file['filename'] ?? file['path']?.split('/')?.last}";
                                                 final originalName = file["originalName"] ?? filename;
                                                 return ListTile(
                                                   contentPadding: EdgeInsets.zero,
@@ -1829,7 +1829,7 @@ class _MailDashboardState extends State<MailDashboard> {
                 const SizedBox(height: 10),
                 ...((thread["attachments"] as List)).map<Widget>((file) {
                   final filename = file["filename"] ?? file.toString().split("/").last;
-                  final fileUrl = "http://localhost:5000/uploads/${file['filename'] ?? file['path']?.split('/')?.last}";
+                  final fileUrl = "https://live-hrm.onrender.com/uploads/${file['filename'] ?? file['path']?.split('/')?.last}";
                   final originalName = file["originalName"] ?? filename;
                   return InkWell(
                     onTap: () async {
