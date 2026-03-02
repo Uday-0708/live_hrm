@@ -49,6 +49,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
+const corsOptions = {
+  origin: [
+    "https://hrmlive.netlify.app",
+    "https://live-hrm.onrender.com",
+    "http://localhost:5000",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 // ---------------- MIDDLEWARE ---------------- //
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.originalUrl}`);
